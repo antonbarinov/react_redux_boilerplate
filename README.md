@@ -1,4 +1,4 @@
-# React.js + MobX boilerplate
+# React.js + Redux boilerplate
 
 ## Main features
 - React 16+
