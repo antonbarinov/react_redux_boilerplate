@@ -13,16 +13,15 @@ fse.copy(file, './dist/index.html', err => {
     console.log('index.html copied success!')
 });
 
+/*
 const prodFiles = [
     './node_modules/react/umd/react.production.min.js',
     './node_modules/react-dom/umd/react-dom.production.min.js',
-    './node_modules/mobx/lib/mobx.umd.min.js'
 ];
 
 const devFiles = [
     './node_modules/react/umd/react.development.js',
     './node_modules/react-dom/umd/react-dom.development.js',
-    './node_modules/mobx/lib/mobx.umd.min.js'
 ];
 
 const files = env === 'development' ? devFiles : prodFiles;
@@ -32,4 +31,4 @@ for (let f of files) {
         if (err) return console.error(err);
         console.log(f + ' copied success!')
     });
-}
+}*/
