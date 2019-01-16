@@ -55,7 +55,11 @@ class apiRequest {
 
         let response;
 
-        response = await axios(options);
+        try {
+            response = await axios(options);
+        } catch (e) {
+            response = e.response;
+        }
 
         if (response.status >= 200 && response.status < 300) {
             let resp = response.data;
