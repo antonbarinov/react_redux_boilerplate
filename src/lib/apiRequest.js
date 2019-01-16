@@ -1,4 +1,4 @@
-import { fetch } from 'whatwg-fetch';
+import axios from 'axios';
 import * as userActions from 'reduxStore/reducers/user/actions';
 
 
@@ -9,7 +9,6 @@ class apiRequest {
     __method = 'GET';
     __url = '/';
     __options = {
-        credentials: 'include',
         headers: {},
     };
     __data = null;
@@ -46,20 +45,20 @@ class apiRequest {
             ...this.__options,
             method: this.__method
         };
-        if (this.__data !== null) options.body = this.__data;
+        if (this.__data !== null) options.data = this.__data;
 
         const userAccessToken = getUserAccessToken();
         if (userAccessToken) options.headers['Authorization'] = userAccessToken;
 
         let baseUrl = window.API_BASE_URL || API_BASE_URL;
-        const url = baseUrl + this.__url;
+        options.url = baseUrl + this.__url;
 
         let response;
 
-        response = await fetch(url, options);
+        response = await axios(options);
 
         if (response.status >= 200 && response.status < 300) {
-            let resp = await response.json(); // we have JSON api
+            let resp = response.data;
             if (resp.data) resp = resp.data;
             return resp;
         }
@@ -67,7 +66,7 @@ class apiRequest {
             userActions.logout();
         }
         else {
-            const resp = await response.json();
+            const resp = response.data;
             const msg = resp.message || response.statusText;
 
             let error = new Error(msg);

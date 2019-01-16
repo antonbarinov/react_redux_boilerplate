@@ -1,6 +1,6 @@
 import identificator from './identificator';
 import dispatcher from 'reduxStore/dispatcher';
-import { fetch } from 'whatwg-fetch';
+import axios from 'axios';
 import { tabTypes } from './constants';
 import store from 'reduxStore/store';
 
@@ -172,7 +172,7 @@ async function getDataForTab(tabId) {
 
     if (actualFetchDataIndex !== tab.tabData.actualFetchDataIndex) return;
 
-    let response = await fetch(basicUrl + queryString);
+    let response = await axios.get(basicUrl + queryString);
 
     // Get fresh data after async calls or timeout waiting's
     state = JSON.parse(JSON.stringify(store.getState().github));
@@ -181,7 +181,7 @@ async function getDataForTab(tabId) {
     if (response.status === 200) {
         // In case if we send multiple requests in progress
         if (actualFetchDataIndex === tab.tabData.actualFetchDataIndex) {
-            const resultJson = await response.json();
+            const resultJson = response.data;
 
             // Get fresh data after async calls or timeout waiting's
             state = JSON.parse(JSON.stringify(store.getState().github));

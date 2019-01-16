@@ -7,7 +7,7 @@ const dev = process.env.NODE_ENV !== 'production';
 
 module.exports = {
     mode: dev ? 'development' : 'production',
-    entry: [ 'whatwg-fetch', './src/index.jsx' ],
+    entry: [ './src/index.jsx' ],
     output: {
         filename: "bundle.js",
         path: __dirname + "/dist"
