@@ -14,8 +14,8 @@ const hashType = dev ? '[hash]' : '[contenthash]';
 module.exports = {
     mode: dev ? 'development' : 'production',
     entry: {
+        vendor: Object.keys(p.dependencies),
         bundle: ['./src/index.jsx'],
-        vendor: Object.keys(p.dependencies)
     },
     output: {
         filename: `[name].${hashType}.js`,
