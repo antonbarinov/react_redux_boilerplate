@@ -67,7 +67,7 @@ module.exports = {
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loader: "source-map-loader" },
+            { enforce: "pre", test: /\.js$/, loaders: dev ? ["source-map-loader"]: [] },
 
             {
                 test: /\.json$/,
@@ -118,9 +118,12 @@ module.exports = {
     },
 
     plugins: [
+        new webpack.DefinePlugin({
+            PRODUCTION: dev === false,
+        }),
         new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
-            template: "index." + process.env.NODE_ENV + ".html",
+            template: "index.html",
         }),
         new webpack.HashedModuleIdsPlugin(),
         // This plugin will cause the relative path

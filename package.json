@@ -7,7 +7,7 @@
     "start": "npm-run-all --parallel start:backend start:front",
     "start:backend": "node backend/index.js",
     "start:front": "node_modules/.bin/webpack-dev-server",
-    "build:prod": "node_modules/.bin/webpack -p ",
+    "build:prod": "cross-env NODE_ENV=production node_modules/.bin/webpack -p ",
     "build:dev": "node_modules/.bin/webpack"
   },
   "author": "Barinov Anton",
