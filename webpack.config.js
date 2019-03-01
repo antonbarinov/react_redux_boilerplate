@@ -1,24 +1,33 @@
 const webpack = require("webpack");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const p = require('./package.json');
 
 const path = require('path');
-
+if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 const dev = process.env.NODE_ENV !== 'production';
+const hashType = dev ? '[hash]' : '[contenthash]';
 
 
 module.exports = {
     mode: dev ? 'development' : 'production',
-    entry: [ './src/index.jsx' ],
+    entry: {
+        bundle: ['./src/index.jsx'],
+        vendor: Object.keys(p.dependencies)
+    },
     output: {
-        filename: "bundle.js",
+        filename: `[name].${hashType}.js`,
         path: __dirname + "/dist"
     },
 
     devServer: {
-        host: 'localhost',
+        host: '0.0.0.0',
         port: 3000,
-        historyApiFallback: {
-            index: 'index.html'
-        }
+        historyApiFallback: true,
+        disableHostCheck: true,
+        hot: false,
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -65,10 +74,9 @@ module.exports = {
                 loaders: ['json'],
             },
             {
-                test: /\.(scss|sass)$/,
-                //exclude: /node_modules/,
+                test: /\.(sa|sc)ss$/,
                 use: [
-                    'style-loader',
+                    dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
@@ -78,14 +86,14 @@ module.exports = {
                         }
                     },
                     'resolve-url-loader',
+                    'postcss-loader',
                     'sass-loader',
-                    'postcss-loader'
                 ]
             },
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'resolve-url-loader',
                     'postcss-loader'
@@ -109,12 +117,23 @@ module.exports = {
         ]
     },
 
-    // When importing a module whose path matches one of the following, just
-    // assume a corresponding global variable exists and use that instead.
-    // This is important because it allows us to avoid bundling all of our
-    // dependencies, which allows browsers to cache those libraries between builds.
-    externals: {
-        //"react": "React",
-        //"react-dom": "ReactDOM",
-    }
+    plugins: [
+        new CleanWebpackPlugin(['dist']),
+        new HtmlWebpackPlugin({
+            template: "index." + process.env.NODE_ENV + ".html",
+        }),
+        new webpack.HashedModuleIdsPlugin(),
+        // This plugin will cause the relative path
+        // of the module to be displayed when HMR is enabled
+        new webpack.NamedModulesPlugin(),
+        // This plugin copies individual
+        // files or entire directories to the build directory
+        new CopyWebpackPlugin([{ from: './assets', to: './assets' }]),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: `[name].${hashType}.css`,
+            chunkFilename: `[id].${hashType}.css`,
+        })
+    ],
 };

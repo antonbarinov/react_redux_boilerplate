@@ -12,8 +12,8 @@ import { Link } from 'react-router-dom';
 
 @CSSModules(require('./styles.scss'))
 export default class LoginPage extends React.Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             validationFields: {

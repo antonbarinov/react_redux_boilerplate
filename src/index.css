@@ -13,15 +13,6 @@ body:before {
     margin-top: -32767px;
 }
 
-#wrap {
-    min-height: 100%;
-}
-
-#main {
-    overflow: auto;
-    padding: 0 0 200px 0;
-}
-
 * {
     box-sizing: border-box;
     text-decoration: none;

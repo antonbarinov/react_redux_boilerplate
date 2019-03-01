@@ -9,7 +9,7 @@ import * as userActions from 'reduxStore/reducers/user/actions';
 
 import App from './App';
 
-
+import './index.css';
 
 (async () => {
     await userActions.me().catch(console.error); // Fetch user data / check for authorization

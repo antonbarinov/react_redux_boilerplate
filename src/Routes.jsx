@@ -10,6 +10,7 @@ import NotFoundPage from './pages/notFound';
 import SignUpPage from './pages/signup';
 import ProfilePage from './pages/profile';
 import GithubPage from './pages/github';
+import Layout from 'layouts/main';
 
 
 export default class Routes extends React.Component {
@@ -17,12 +18,12 @@ export default class Routes extends React.Component {
         return [
             <Route key="1" component={HistorySetter}/>,
             <Switch key="2">
-                <Route path="/" exact component={MainPage} />
-                <Route path="/login" exact component={LoginPage} />
-                <Route path="/signup" exact component={SignUpPage} />
-                <Route path="/github" exact component={GithubPage} />
-                <PrivateRoute path="/profile" exact component={ProfilePage} />
-                <Route component={NotFoundPage}/>
+                <Route path="/" exact ><Layout><MainPage /></Layout></Route>
+                <Route path="/login" exact ><Layout><LoginPage /></Layout></Route>
+                <Route path="/signup" exact ><Layout><SignUpPage /></Layout></Route>
+                <Route path="/github" exact ><Layout><GithubPage /></Layout></Route>
+                <PrivateRoute path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+                <Route><Layout><NotFoundPage /></Layout></Route>
             </Switch>
         ];
     }
@@ -33,15 +34,14 @@ function HistorySetter({ history }) {
     return null;
 }
 
-function PrivateRoute({ component: Component, ...rest }) {
+function PrivateRoute({ children, ...rest }) {
     const user = store.getState().user;
-
     return (
         <Route
             {...rest}
             render={props =>
                 user ? (
-                    <Component {...props} />
+                    React.cloneElement(children, props)
                 ) : (
                     <Redirect
                         to={{

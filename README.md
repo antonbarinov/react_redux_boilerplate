@@ -10,6 +10,7 @@
 - Forms validation helpers
 - Real API requests to backend
 - Basic layout with dynamic header and footer
+- Production build with separate vendors modules and app bundle
 
 ### What this example can do?
 - Sign up page and logic
@@ -21,7 +22,7 @@
 
 ## Run
 ```
-npm i
+npm install
 npm start
 ```
 Go to http://localhost:3000/

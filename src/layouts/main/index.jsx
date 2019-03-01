@@ -1,17 +1,18 @@
 import * as React from 'react';
 import Header from './header';
 import Footer from './footer';
+import CSSModules from "react-css-modules";
 
-import './main.css';
-
+@CSSModules(require('./styles.scss'))
 export default class Layout extends React.Component {
     render() {
+        const { children, ...restParams } = this.props;
         return (
             <span>
-                <div id="wrap">
+                <div styleName="wrap">
                     <Header/>
-                    <div id="main">
-                        {this.props.children}
+                    <div styleName="main">
+                        {React.cloneElement(children, restParams)}
                     </div>
                 </div>
                 <Footer/>
