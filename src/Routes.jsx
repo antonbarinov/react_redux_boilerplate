@@ -35,7 +35,7 @@ function HistorySetter({ history }) {
 }
 
 function PrivateRoute({ children, ...rest }) {
-    const user = store.getState().user;
+    const user = store.getState().user.data;
     return (
         <Route
             {...rest}

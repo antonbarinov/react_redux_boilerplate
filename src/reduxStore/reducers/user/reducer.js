@@ -1,14 +1,11 @@
 import identificator from './identificator';
+import dynamicReducer from 'reduxStore/dynamicReducer';
 
-const initialState = false;
-
-const user = (state = initialState, action) => {
-    if (action.type.indexOf(identificator + '__') === 0) {
-        if (action.newState === undefined) return state;
-        return action.newState;
-    }
-
-    return state;
+const initialState = {
+    isFetching: false,
+    originalResponseData: false,
+    data: false,
+    error: null
 };
 
-export default user;
+export default dynamicReducer(initialState, identificator);

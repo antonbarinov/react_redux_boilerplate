@@ -4,21 +4,31 @@ import apiRequest from 'lib/apiRequest';
 import { helperRedirect } from 'helpers/redirect';
 
 export async function me() {
-    const data = await new apiRequest('GET /me').send();
-    dispatcher('me', identificator, data);
+    const prefix = 'me';
+    try {
+        const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
+
+        dispatcher(prefix, identificator, {data: response.getData()});
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 export function logout() {
+    const prefix = 'logout';
     window.localStorage.removeItem('accessToken');
-    dispatcher('logout', identificator, false);
+    dispatcher(prefix, identificator, 'reset');
     helperRedirect('/login');
 }
 
 export async function login(data) {
-    const res = await new apiRequest('POST /login', false).sendJSON(data);
-    if (res.accessToken && res.user) {
-        dispatcher('login', identificator, res.user);
-        window.localStorage.setItem('accessToken', res.accessToken);
+    const prefix = 'login';
+    const response = await new apiRequest('POST /login', false).redux(prefix, identificator).sendJSON(data);
+    const respData = response.getData();
+
+    if (respData.accessToken && respData.user) {
+        dispatcher(prefix, identificator, { data: respData.user });
+        window.localStorage.setItem('accessToken', respData.accessToken);
     }
     // Something wrong here
     else {
@@ -29,10 +39,13 @@ export async function login(data) {
 }
 
 export async function signup(data) {
-    const res = await new apiRequest('POST /signup', false).sendJSON(data);
-    if (res.accessToken && res.user) {
-        dispatcher('signup', identificator, res.user);
-        window.localStorage.setItem('accessToken', res.accessToken);
+    const prefix = 'signup';
+    const response = await new apiRequest('POST /signup', false).redux(prefix, identificator).sendJSON(data);
+    const respData = response.getData();
+
+    if (respData.accessToken && respData.user) {
+        dispatcher(prefix, identificator, { data: respData.user });
+        window.localStorage.setItem('accessToken', respData.accessToken);
     }
     // Something wrong here
     else {
