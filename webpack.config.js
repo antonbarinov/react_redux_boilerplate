@@ -19,7 +19,8 @@ module.exports = {
     },
     output: {
         filename: `[name].${hashType}.js`,
-        path: __dirname + "/dist"
+        path: __dirname + "/dist",
+        publicPath: '/'
     },
 
     devServer: {

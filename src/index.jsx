@@ -11,15 +11,15 @@ import App from './App';
 
 import './index.css';
 
-(async () => {
-    await userActions.me().catch(console.error); // Fetch user data / check for authorization
+// Fetch user data / check for authorization
+userActions.me().catch(console.error);
 
-    ReactDOM.render(
-        <Provider store={store}>
-            <Router>
-                <App/>
-            </Router>
-        </Provider>,
-        document.getElementById('root')
-    );
-})();
+ReactDOM.render(
+    <Provider store={store}>
+        <Router>
+            <App/>
+        </Router>
+    </Provider>,
+    document.getElementById('root')
+);
+
