@@ -10,6 +10,22 @@ if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development';
 const dev = process.env.NODE_ENV !== 'production';
 const hashType = dev ? '[hash]' : '[contenthash]';
 
+let devPlugins = [];
+let prodPlugins = [];
+if (dev) devPlugins = [];
+if (!dev) prodPlugins = [
+    new CleanWebpackPlugin(['dist']),
+    // This plugin copies individual
+    // files or entire directories to the build directory
+    new CopyWebpackPlugin([{ from: './assets', to: './assets' }]),
+    new MiniCssExtractPlugin({
+        // Options similar to the same options in webpackOptions.output
+        // both options are optional
+        filename: `[name].${hashType}.css`,
+        chunkFilename: `[id].${hashType}.css`,
+    }),
+];
+
 
 module.exports = {
     mode: dev ? 'development' : 'production',
@@ -29,6 +45,8 @@ module.exports = {
         historyApiFallback: true,
         disableHostCheck: true,
         hot: false,
+        inline: false, //disable auto page reload
+        publicPath: '/'
     },
 
     // Enable sourcemaps for debugging webpack's output.
@@ -62,7 +80,6 @@ module.exports = {
                     plugins: [
                         ["@babel/plugin-proposal-decorators", { "legacy": true }],
                         ["@babel/plugin-proposal-class-properties", { "loose": true }],
-                        'react-hot-loader/babel',
                     ],
                 },
             },
@@ -122,22 +139,10 @@ module.exports = {
         new webpack.DefinePlugin({
             PRODUCTION: dev === false,
         }),
-        new CleanWebpackPlugin(['dist']),
         new HtmlWebpackPlugin({
             template: "index.html",
         }),
-        new webpack.HashedModuleIdsPlugin(),
-        // This plugin will cause the relative path
-        // of the module to be displayed when HMR is enabled
-        new webpack.NamedModulesPlugin(),
-        // This plugin copies individual
-        // files or entire directories to the build directory
-        new CopyWebpackPlugin([{ from: './assets', to: './assets' }]),
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: `[name].${hashType}.css`,
-            chunkFilename: `[id].${hashType}.css`,
-        })
+        ...devPlugins,
+        ...prodPlugins,
     ],
 };

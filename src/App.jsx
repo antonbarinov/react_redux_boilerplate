@@ -1,13 +1,19 @@
 import * as React from 'react';
-import { hot } from 'react-hot-loader'
+import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux'
+import store from 'reduxStore/store';
 import Routes from './Routes';
 
 class App extends React.Component {
     render() {
         return (
-            <Routes/>
+            <Provider store={store}>
+                <Router>
+                    <Routes/>
+                </Router>
+            </Provider>
         );
     }
 }
 
-export default hot(module)(App);
+export default App;

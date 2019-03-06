@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
+import { connect } from "react-redux";
 
 import { setHistory } from './helpers/redirect';
-import store from 'reduxStore/store';
 
 import MainPage from './pages/main';
 import LoginPage from './pages/login';
@@ -13,8 +13,19 @@ import GithubPage from './pages/github';
 import Layout from 'layouts/main';
 
 
+
+const mapStateToProps = (state) => {
+    return {
+        user: state.user.data,
+    }
+};
+
+@withRouter
+@connect(mapStateToProps)
 export default class Routes extends React.Component {
     render() {
+        const { user } = this.props;
+
         return [
             <Route key="1" component={HistorySetter}/>,
             <Switch key="2">
@@ -22,7 +33,7 @@ export default class Routes extends React.Component {
                 <Route path="/login" exact ><Layout><LoginPage /></Layout></Route>
                 <Route path="/signup" exact ><Layout><SignUpPage /></Layout></Route>
                 <Route path="/github" exact ><Layout><GithubPage /></Layout></Route>
-                <PrivateRoute path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+                <PrivateRoute user={user} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
                 <Route><Layout><NotFoundPage /></Layout></Route>
             </Switch>
         ];
@@ -34,8 +45,7 @@ function HistorySetter({ history }) {
     return null;
 }
 
-function PrivateRoute({ children, ...rest }) {
-    const user = store.getState().user.data;
+function PrivateRoute({ children, user, ...rest }) {
     return (
         <Route
             {...rest}

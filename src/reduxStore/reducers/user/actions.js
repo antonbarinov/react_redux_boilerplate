@@ -1,24 +1,18 @@
 import identificator from './identificator';
 import dispatcher from 'reduxStore/dispatcher';
 import apiRequest from 'lib/apiRequest';
-import { helperRedirect } from 'helpers/redirect';
 
 export async function me() {
     const prefix = 'me';
-    try {
-        const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
 
-        dispatcher(prefix, identificator, {data: response.getData()});
-    } catch (e) {
-        console.log(e);
-    }
+    const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
+    dispatcher(prefix, identificator, {data: response.getData()});
 }
 
 export function logout() {
     const prefix = 'logout';
     window.localStorage.removeItem('accessToken');
     dispatcher(prefix, identificator, 'reset');
-    helperRedirect('/login');
 }
 
 export async function login(data) {
