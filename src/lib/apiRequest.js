@@ -86,7 +86,9 @@ class apiRequest {
         if (response.status >= 200 && response.status < 300) {
             let resp = response.data;
             if (this.__redux) {
-                dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, { originalResponseData: resp });
+                setTimeout(() => {
+                    dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, {originalResponseData: resp});
+                });
             }
 
             //if (resp.data) resp = resp.data;

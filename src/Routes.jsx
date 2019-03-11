@@ -17,6 +17,7 @@ import Layout from 'layouts/main';
 const mapStateToProps = (state) => {
     return {
         user: state.user.data,
+        userIsFetching: state.user.isFetching,
     }
 };
 
@@ -24,7 +25,7 @@ const mapStateToProps = (state) => {
 @connect(mapStateToProps)
 export default class Routes extends React.Component {
     render() {
-        const { user } = this.props;
+        const { user, userIsFetching } = this.props;
 
         return [
             <Route key="1" component={HistorySetter}/>,
@@ -33,7 +34,7 @@ export default class Routes extends React.Component {
                 <Route path="/login" exact ><Layout><LoginPage /></Layout></Route>
                 <Route path="/signup" exact ><Layout><SignUpPage /></Layout></Route>
                 <Route path="/github" exact ><Layout><GithubPage /></Layout></Route>
-                <PrivateRoute user={user} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+                <PrivateRoute user={user} userIsFetching={userIsFetching} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
                 <Route><Layout><NotFoundPage /></Layout></Route>
             </Switch>
         ];
@@ -45,12 +46,12 @@ function HistorySetter({ history }) {
     return null;
 }
 
-function PrivateRoute({ children, user, ...rest }) {
+function PrivateRoute({ children, user, userIsFetching, ...rest }) {
     return (
         <Route
             {...rest}
             render={props =>
-                user ? (
+                (userIsFetching === true || user) ? (
                     React.cloneElement(children, props)
                 ) : (
                     <Redirect
