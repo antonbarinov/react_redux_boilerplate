@@ -26,6 +26,10 @@ const mapStateToProps = (state) => {
 export default class Routes extends React.Component {
     render() {
         const { user, userIsFetching } = this.props;
+        const privateProps = {
+            user,
+            userIsFetching
+        };
 
         return [
             <Route key="1" component={HistorySetter}/>,
@@ -34,7 +38,9 @@ export default class Routes extends React.Component {
                 <Route path="/login" exact ><Layout><LoginPage /></Layout></Route>
                 <Route path="/signup" exact ><Layout><SignUpPage /></Layout></Route>
                 <Route path="/github" exact ><Layout><GithubPage /></Layout></Route>
-                <PrivateRoute user={user} userIsFetching={userIsFetching} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+
+                <PrivateRoute {...privateProps} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+
                 <Route><Layout><NotFoundPage /></Layout></Route>
             </Switch>
         ];
