@@ -31,9 +31,9 @@ export default class Routes extends React.Component {
             userIsFetching,
         };
 
-        return [
-            <Route key="1" component={ HistorySetter } />,
-            <Switch key="2">
+        return <React.Fragment>
+            <Route component={ HistorySetter } />
+            <Switch>
                 <Route path="/" exact><MainLayout><MainPage /></MainLayout></Route>
                 <Route path="/login" exact><AuthLayout><LoginPage /></AuthLayout></Route>
                 <Route path="/signup" exact><AuthLayout><SignUpPage /></AuthLayout></Route>
@@ -42,8 +42,8 @@ export default class Routes extends React.Component {
                 <PrivateRoute { ...privateProps } path="/profile"><MainLayout><ProfilePage /></MainLayout></PrivateRoute>
 
                 <Route><MainLayout><NotFoundPage /></MainLayout></Route>
-            </Switch>,
-        ];
+            </Switch>
+        </React.Fragment>;
     }
 }
 
