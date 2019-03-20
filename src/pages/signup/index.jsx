@@ -34,7 +34,7 @@ export default class SignUpPage extends React.Component {
     }
 
     // Validate form and submit
-    async validateAndSubmit() {
+    validateAndSubmit = async () => {
         // Validate login
         this.fv.validateField('login', (val) => {
             if (val.length < 3) return `Login must contain not less than 3 symbols`;
@@ -81,8 +81,9 @@ export default class SignUpPage extends React.Component {
                     <FormInput placeholder="Password"
                                type="password" { ...this.fv.validationFieldParams('password') } />
                     <FormServerErrors msg={ this.state.serverError } />
-                    <FormButton onClick={ this.validateAndSubmit.bind(this) }>Sign up</FormButton>
-                    <div className={ styles.underBtnText }>Already have account? <Link to="/login">Login</Link> instead
+                    <FormButton onClick={ this.validateAndSubmit }>Sign up</FormButton>
+                    <div className={ styles.underBtnText }>
+                        Already have account? <Link to="/login">Login</Link> instead
                     </div>
                 </div>
             </Container>

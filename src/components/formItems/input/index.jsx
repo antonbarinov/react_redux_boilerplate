@@ -3,20 +3,16 @@ import * as React from 'react';
 import styles from './styles.module.scss';
 
 
-class FormInput extends React.Component {
-    render() {
-        let { msg, innerRef, ...props } = this.props;
+function FormInput({ msg, innerRef, ...props }) {
+    let classesStr = [ styles.inputContainer ];
+    if (msg) classesStr.push(styles.error);
 
-        let classesStr = [ styles.inputContainer ];
-        if (msg) classesStr.push(styles.error);
-
-        return (
-            <div className={ classesStr.join(' ') }>
-                <input { ...props } ref={ innerRef } />
-                <div className={ styles.msg }>{ msg }</div>
-            </div>
-        );
-    }
+    return (
+        <div className={ classesStr.join(' ') }>
+            <input { ...props } ref={ innerRef } />
+            <div className={ styles.msg }>{ msg }</div>
+        </div>
+    );
 }
 
 

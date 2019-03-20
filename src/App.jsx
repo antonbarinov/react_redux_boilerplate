@@ -5,14 +5,12 @@ import store from 'reduxStore/store';
 import Routes from './Routes';
 
 
-export default class App extends React.Component {
-    render() {
-        return (
-            <Provider store={ store }>
-                <Router>
-                    <Routes />
-                </Router>
-            </Provider>
-        );
-    }
+export default function App() {
+    return (
+        <Provider store={ store }>
+            <Router>
+                <Routes />
+            </Router>
+        </Provider>
+    );
 }
