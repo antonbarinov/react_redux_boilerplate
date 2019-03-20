@@ -1,12 +1,20 @@
 import identificator from './identificator';
 import dispatcher from 'reduxStore/dispatcher';
-import apiRequest from 'lib/apiRequest';
+import apiRequest, { getUserAccessToken } from 'lib/apiRequest';
 
 export async function me() {
     const prefix = 'me';
 
-    const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
-    dispatcher(prefix, identificator, {data: response.getData()});
+    const accessToken = getUserAccessToken();
+    if (accessToken) {
+        try {
+            const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
+            dispatcher(prefix, identificator, { data: response.getData() });
+        } catch (e) {
+            dispatcher(prefix, identificator, 'reset');
+            throw e;
+        }
+    }
 }
 
 export function logout() {

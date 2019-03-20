@@ -136,7 +136,7 @@ class apiRequest {
     }
 }
 
-function getUserAccessToken() {
+export function getUserAccessToken() {
     return window.localStorage.getItem('accessToken');
 }
 
