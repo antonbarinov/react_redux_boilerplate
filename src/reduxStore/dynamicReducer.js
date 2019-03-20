@@ -6,7 +6,7 @@ export default function (initialState, identificator) {
 
             return {
                 ...state,
-                ...action.newState
+                ...action.newState,
             };
         }
 

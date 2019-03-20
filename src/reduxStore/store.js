@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, compose } from 'redux';
 import reducers from './reducers';
 
-import { createLogger } from 'redux-logger'
+import { createLogger } from 'redux-logger';
 
 let middleware = [];
 

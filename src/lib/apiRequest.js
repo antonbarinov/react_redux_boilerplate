@@ -5,6 +5,7 @@ import dispatcher from 'reduxStore/dispatcher';
 
 const API_BASE_URL = 'http://localhost:3010';
 
+
 class apiRequest {
     __unifyErrorsHandler = true;
     __method = 'GET';
@@ -34,18 +35,18 @@ class apiRequest {
     qs(params = {}) {
         const esc = encodeURIComponent;
         const query = Object.keys(params)
-            .map(k => esc(k) + '=' + esc(params[k]))
-            .join('&');
+                            .map(k => esc(k) + '=' + esc(params[k]))
+                            .join('&');
 
         this.__url += (this.__url.indexOf('?') === -1 ? '?' : '&') + query;
 
         return this;
     }
 
-    options (options = {}) {
+    options(options = {}) {
         this.__options = {
             ...this.options,
-            ...options
+            ...options,
         };
 
         return this;
@@ -54,7 +55,7 @@ class apiRequest {
     async __send() {
         let options = {
             ...this.__options,
-            method: this.__method
+            method: this.__method,
         };
         if (this.__data !== null) options.data = this.__data;
 
@@ -71,9 +72,11 @@ class apiRequest {
                 dispatcher(this.__redux.prefix + '__fetching', this.__redux.identificator, { isFetching: true });
             }
             response = await axios(options);
-        } catch (e) {
+        }
+        catch (e) {
             response = e.response;
-        } finally {
+        }
+        finally {
             if (this.__redux) {
                 setTimeout(() => {
                     dispatcher(this.__redux.prefix + '__fetching_end', this.__redux.identificator, { isFetching: false });
@@ -88,7 +91,7 @@ class apiRequest {
         if (response.status >= 200 && response.status < 300) {
             let resp = response.data;
             if (this.__redux) {
-                dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, {originalResponseData: resp});
+                dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, { originalResponseData: resp });
             }
 
             //if (resp.data) resp = resp.data;
@@ -123,7 +126,7 @@ class apiRequest {
         this.__data = JSON.stringify(data);
 
         this.__options.headers = {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         };
 
         return this.__send();
@@ -136,10 +139,10 @@ class apiRequest {
     }
 }
 
+
 export function getUserAccessToken() {
     return window.localStorage.getItem('accessToken');
 }
-
 
 
 export default apiRequest;

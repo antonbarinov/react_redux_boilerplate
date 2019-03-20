@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 export default class LayoutFooter extends React.Component {
     render() {
         return (
-            <footer className={styles.footer}>
+            <footer className={ styles.footer }>
                 some footer content
             </footer>
         );

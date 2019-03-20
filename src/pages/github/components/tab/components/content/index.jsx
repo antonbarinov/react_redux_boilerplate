@@ -13,21 +13,21 @@ export default class Content extends React.Component {
         if (data.length === 0) return <div>Nothing found</div>;
 
         return (
-          <div className={styles.items_list}>
-              { isDataFetching && <div className={styles.fetching_overlap} /> }
+            <div className={ styles.items_list }>
+                { isDataFetching && <div className={ styles.fetching_overlap } /> }
 
-              {
-                  data.map(item => {
-                      let text = item.login || item.full_name;
+                {
+                    data.map(item => {
+                        let text = item.login || item.full_name;
 
-                      return (
-                          <div className={styles.item} key={item.id}>
-                              <a href={item.html_url} target="_blank">{text}</a>
-                          </div>
-                      )
-                  })
-              }
-          </div>
+                        return (
+                            <div className={ styles.item } key={ item.id }>
+                                <a href={ item.html_url } target="_blank">{ text }</a>
+                            </div>
+                        );
+                    })
+                }
+            </div>
         );
     }
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Route, Switch, Redirect, withRouter } from 'react-router-dom';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import { setHistory } from './helpers/redirect';
 
@@ -10,15 +10,15 @@ import NotFoundPage from './pages/notFound';
 import SignUpPage from './pages/signup';
 import ProfilePage from './pages/profile';
 import GithubPage from './pages/github';
-import Layout from 'layouts/main';
-
+import MainLayout from 'layouts/main';
+import AuthLayout from 'layouts/auth';
 
 
 const mapStateToProps = (state) => {
     return {
         user: state.user.data,
         userIsFetching: state.user.isFetching,
-    }
+    };
 };
 
 @withRouter
@@ -28,21 +28,21 @@ export default class Routes extends React.Component {
         const { user, userIsFetching } = this.props;
         const privateProps = {
             user,
-            userIsFetching
+            userIsFetching,
         };
 
         return [
-            <Route key="1" component={HistorySetter}/>,
+            <Route key="1" component={ HistorySetter } />,
             <Switch key="2">
-                <Route path="/" exact ><Layout><MainPage /></Layout></Route>
-                <Route path="/login" exact ><Layout><LoginPage /></Layout></Route>
-                <Route path="/signup" exact ><Layout><SignUpPage /></Layout></Route>
-                <Route path="/github" exact ><Layout><GithubPage /></Layout></Route>
+                <Route path="/" exact><MainLayout><MainPage /></MainLayout></Route>
+                <Route path="/login" exact><AuthLayout><LoginPage /></AuthLayout></Route>
+                <Route path="/signup" exact><AuthLayout><SignUpPage /></AuthLayout></Route>
+                <Route path="/github" exact><MainLayout><GithubPage /></MainLayout></Route>
 
-                <PrivateRoute {...privateProps} path="/profile"><Layout><ProfilePage /></Layout></PrivateRoute>
+                <PrivateRoute { ...privateProps } path="/profile"><MainLayout><ProfilePage /></MainLayout></PrivateRoute>
 
-                <Route><Layout><NotFoundPage /></Layout></Route>
-            </Switch>
+                <Route><MainLayout><NotFoundPage /></MainLayout></Route>
+            </Switch>,
         ];
     }
 }
@@ -55,16 +55,16 @@ function HistorySetter({ history }) {
 function PrivateRoute({ children, user, userIsFetching, ...rest }) {
     return (
         <Route
-            {...rest}
-            render={props =>
+            { ...rest }
+            render={ props =>
                 (userIsFetching === true || user) ? (
                     React.cloneElement(children, props)
                 ) : (
                     <Redirect
-                        to={{
-                            pathname: "/login",
-                            state: { from: props.location }
-                        }}
+                        to={ {
+                            pathname: '/login',
+                            state: { from: props.location },
+                        } }
                     />
                 )
             }

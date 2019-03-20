@@ -8,7 +8,7 @@ import styles from './styles.module.scss';
 const mapStateToProps = (state) => {
     return {
         user: state.user.data,
-    }
+    };
 };
 
 @connect(mapStateToProps)
@@ -18,7 +18,7 @@ export default class ProfilePage extends React.Component {
 
         return (
             <Container>
-                <h1 className={styles.title}>Hello, {user.full_name}!</h1>
+                <h1 className={ styles.title }>Hello, { user.full_name }!</h1>
             </Container>
         );
     }

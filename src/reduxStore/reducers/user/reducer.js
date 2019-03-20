@@ -5,7 +5,7 @@ const initialState = {
     isFetching: false,
     originalResponseData: false,
     data: false,
-    error: null
+    error: null,
 };
 
 export default dynamicReducer(initialState, identificator);

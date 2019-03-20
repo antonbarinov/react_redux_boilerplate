@@ -17,7 +17,7 @@ export default class SignUpPage extends React.Component {
 
         this.state = {
             validationFields: {
-                login: { msg: false, },
+                login: { msg: false },
                 password: { msg: false },
                 full_name: { msg: false },
             },
@@ -63,7 +63,8 @@ export default class SignUpPage extends React.Component {
                 // Success
                 helperRedirect('/profile');
             }
-        } catch (e) {
+        }
+        catch (e) {
             this.setState({
                 serverError: e.message,
             });
@@ -72,15 +73,17 @@ export default class SignUpPage extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className={styles.container}>
                 <h1>Sign up</h1>
                 <div>
-                    <FormInput placeholder="Full name" {...this.fv.validationFieldParams('full_name')} />
-                    <FormInput placeholder="Login" {...this.fv.validationFieldParams('login')} />
-                    <FormInput placeholder="Password" type="password" {...this.fv.validationFieldParams('password')} />
-                    <FormServerErrors msg={this.state.serverError} />
-                    <FormButton onClick={this.validateAndSubmit.bind(this)}>Sign up</FormButton>
-                    <div className={styles.underBtnText}>Already have account? <Link to="/login">Login</Link> instead</div>
+                    <FormInput placeholder="Full name" { ...this.fv.validationFieldParams('full_name') } />
+                    <FormInput placeholder="Login" { ...this.fv.validationFieldParams('login') } />
+                    <FormInput placeholder="Password"
+                               type="password" { ...this.fv.validationFieldParams('password') } />
+                    <FormServerErrors msg={ this.state.serverError } />
+                    <FormButton onClick={ this.validateAndSubmit.bind(this) }>Sign up</FormButton>
+                    <div className={ styles.underBtnText }>Already have account? <Link to="/login">Login</Link> instead
+                    </div>
                 </div>
             </Container>
         );

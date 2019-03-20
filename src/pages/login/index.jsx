@@ -55,7 +55,8 @@ export default class LoginPage extends React.Component {
                 // Success
                 helperRedirect('/profile');
             }
-        } catch (e) {
+        }
+        catch (e) {
             this.setState({
                 serverError: e.message,
             });
@@ -64,14 +65,17 @@ export default class LoginPage extends React.Component {
 
     render() {
         return (
-            <Container>
+            <Container className={styles.container}>
                 <h1>Login</h1>
                 <div>
-                    <FormInput placeholder="Login" {...this.fv.validationFieldParams('login')} />
-                    <FormInput placeholder="Password" type="password" {...this.fv.validationFieldParams('password')} />
-                    <FormServerErrors msg={this.state.serverError} />
-                    <FormButton onClick={this.validateAndSubmit.bind(this)}>Login</FormButton>
-                    <div className={styles.underBtnText}>Doesn't have account? <Link to="/signup">Sing up</Link> instead</div>
+                    <FormInput placeholder="Login" { ...this.fv.validationFieldParams('login') } />
+                    <FormInput placeholder="Password"
+                               type="password" { ...this.fv.validationFieldParams('password') } />
+                    <FormServerErrors msg={ this.state.serverError } />
+                    <FormButton onClick={ this.validateAndSubmit.bind(this) }>Login</FormButton>
+                    <div className={ styles.underBtnText }>Doesn't have account? <Link to="/signup">Sing
+                        up</Link> instead
+                    </div>
                 </div>
             </Container>
         );

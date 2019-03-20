@@ -3,15 +3,15 @@ import Filter from './components/filter';
 import Search from './components/search';
 import Content from './components/content';
 import Pagination from './components/pagination';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
 import styles from './styles.module.scss';
 
 
 const mapStateToProps = (state) => {
     return {
-        tabs: state.github.tabs
-    }
+        tabs: state.github.tabs,
+    };
 };
 
 
@@ -25,16 +25,16 @@ export default class Tab extends React.Component {
         activeTab = activeTab[0];
 
         return (
-            <div className={styles.Tab} data-tab-id={activeTab.id} >
+            <div className={ styles.Tab } data-tab-id={ activeTab.id }>
                 <h1>{ activeTab.tabType }</h1>
-                <div className={styles.tab_holder}>
-                    <div className={styles.filters}>
-                        <Filter tab={activeTab} />
+                <div className={ styles.tab_holder }>
+                    <div className={ styles.filters }>
+                        <Filter tab={ activeTab } />
                     </div>
-                    <div className={styles.content}>
-                        <Search tab={activeTab} />
-                        <Content tab={activeTab} />
-                        <Pagination tab={activeTab} />
+                    <div className={ styles.content }>
+                        <Search tab={ activeTab } />
+                        <Content tab={ activeTab } />
+                        <Pagination tab={ activeTab } />
                     </div>
                 </div>
             </div>

@@ -3,10 +3,13 @@ import * as React from 'react';
 import styles from './styles.module.scss';
 
 
-export default function Container(props) {
+export default function Container({ children, className, ...props }) {
+    const stylesStr = [ styles.container ];
+    if (className) stylesStr.push(className);
+
     return (
-        <div className={styles.container}>
-            {props.children}
+        <div className={ stylesStr.join(' ') } { ...props } >
+            { children }
         </div>
     );
 }

@@ -15,8 +15,11 @@ export default class Search extends React.Component {
         const { searchQuery } = tab.tabData;
 
         return (
-            <div className={styles.search}>
-                <input placeholder="Search" onChange={(e) => this.inputHolder(e, tab)} value={searchQuery || ''} autoComplete="off" />
+            <div className={ styles.search }>
+                <input placeholder="Search"
+                       onChange={ (e) => this.inputHolder(e, tab) }
+                       value={ searchQuery || '' }
+                       autoComplete="off" />
             </div>
         );
     }

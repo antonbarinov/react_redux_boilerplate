@@ -1,4 +1,5 @@
-import * as React from "react";
+import * as React from 'react';
+
 
 class FormValidator {
     component = {};
@@ -26,7 +27,8 @@ class FormValidator {
 
         if (result === true || result === undefined) {
             state.validationFields[fieldName].msg = false;
-        } else {
+        }
+        else {
             state.validationFields[fieldName].msg = result;
         }
 
@@ -51,5 +53,6 @@ class FormValidator {
     }
 
 }
+
 
 export default FormValidator;

@@ -10,7 +10,7 @@ export default class ReactClassComponent extends React.Component {
 
     render() {
         return (
-            <div className={styles.ComponentName}>
+            <div className={ styles.ComponentName }>
                 <h1>Hello world</h1>
             </div>
         );

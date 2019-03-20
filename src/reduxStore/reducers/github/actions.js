@@ -97,7 +97,8 @@ async function getDataForTab(tabId) {
 
     const { filtersData } = tab.tabData;
     let filters = [];
-    let val, basicUrl;
+    let val,
+        basicUrl;
 
     /**
      * Repositories
@@ -105,20 +106,22 @@ async function getDataForTab(tabId) {
     if (tab.tabType === tabTypes.Repositories) {
         val = filtersData.minStars;
         if (val && val.length && val >= 0) {
-            filters.push(`stars:>=${val}`);
-        } else {
+            filters.push(`stars:>=${ val }`);
+        }
+        else {
             filters.push(`stars:>=0`); // Because of github bug if choose only "fork" filter
         }
 
         val = filtersData.minForks;
         if (val && val.length && val >= 0) {
-            filters.push(`forks:>=${val}`);
+            filters.push(`forks:>=${ val }`);
         }
 
         val = filtersData.forks;
         if (val === 'yes') {
             filters.push(`fork:only`);
-        } else if (val === 'no') {
+        }
+        else if (val === 'no') {
             filters.push(`fork:false`);
         }
         else if (val === 'all') {
@@ -133,14 +136,15 @@ async function getDataForTab(tabId) {
     else if (tab.tabType === tabTypes.Users) {
         val = filtersData.minRepos;
         if (val && val.length && val >= 0) {
-            filters.push(`repos:>=${val}`);
-        } else {
+            filters.push(`repos:>=${ val }`);
+        }
+        else {
             filters.push(`repos:>=0`);
         }
 
         val = filtersData.minFollowers;
         if (val && val.length && val >= 0) {
-            filters.push(`followers:>=${val}`);
+            filters.push(`followers:>=${ val }`);
         }
 
         basicUrl = 'https://api.github.com/search/users?q=';
@@ -156,7 +160,7 @@ async function getDataForTab(tabId) {
     }
 
     const { page } = tab.pagination;
-    queryString += `&page=${page}&per_page=${perPage}`;
+    queryString += `&page=${ page }&per_page=${ perPage }`;
 
     const actualFetchDataIndex = ++tab.tabData.actualFetchDataIndex;
 
@@ -191,7 +195,8 @@ async function getDataForTab(tabId) {
             tab.pagination.itemsCount = resultJson.total_count;
             tab.pagination.pages = Math.ceil(resultJson.total_count / perPage);
         }
-    } else {
+    }
+    else {
         alert(`Github api error`);
     }
 
@@ -221,7 +226,8 @@ export function removeTab(tabId) {
 
     if (state.tabs.length === 1) {
         state.tabs = [];
-    } else if (state.tabs.length > 1) {
+    }
+    else if (state.tabs.length > 1) {
         let index = 0;
         let tabIndex = 0;
         let isTabActive = false;
@@ -237,7 +243,8 @@ export function removeTab(tabId) {
         if (isTabActive) {
             if (tabIndex === 0) {
                 state.tabs[1].active = true;
-            } else {
+            }
+            else {
                 state.tabs[tabIndex - 1].active = true;
             }
         }

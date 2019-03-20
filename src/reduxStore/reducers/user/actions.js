@@ -10,7 +10,8 @@ export async function me() {
         try {
             const response = await new apiRequest('GET /me').redux(prefix, identificator).send();
             dispatcher(prefix, identificator, { data: response.getData() });
-        } catch (e) {
+        }
+        catch (e) {
             dispatcher(prefix, identificator, 'reset');
             throw e;
         }

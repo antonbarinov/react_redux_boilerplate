@@ -12,10 +12,16 @@ export default class Pagination extends React.Component {
         if (pages <= 1) return null;
 
         return (
-            <div className={styles.pagination}>
-                <div className={styles.page_switcher} data-disabled={page === 1 ? 'true' : ''} onClick={() => githubActions.changePage(tab.id, page - 1)}>Prev page</div>
-                <div className={styles.current_page}>{page}</div>
-                <div className={styles.page_switcher} data-disabled={page === pages ? 'true' : ''} onClick={() => githubActions.changePage(tab.id, page + 1)}>Next page</div>
+            <div className={ styles.pagination }>
+                <div className={ styles.page_switcher }
+                     data-disabled={ page === 1 ? 'true' : '' }
+                     onClick={ () => githubActions.changePage(tab.id, page - 1) }>Prev page
+                </div>
+                <div className={ styles.current_page }>{ page }</div>
+                <div className={ styles.page_switcher }
+                     data-disabled={ page === pages ? 'true' : '' }
+                     onClick={ () => githubActions.changePage(tab.id, page + 1) }>Next page
+                </div>
             </div>
         );
     }

@@ -11,12 +11,13 @@ class FormInput extends React.Component {
         if (msg) classesStr.push(styles.error);
 
         return (
-            <div className={classesStr.join(' ')}>
-                <input {...props} ref={innerRef}/>
-                <div className={styles.msg}>{msg}</div>
+            <div className={ classesStr.join(' ') }>
+                <input { ...props } ref={ innerRef } />
+                <div className={ styles.msg }>{ msg }</div>
             </div>
         );
     }
 }
 
-export default React.forwardRef((props, ref) => <FormInput innerRef={ref} {...props}/>);
+
+export default React.forwardRef((props, ref) => <FormInput innerRef={ ref } { ...props } />);

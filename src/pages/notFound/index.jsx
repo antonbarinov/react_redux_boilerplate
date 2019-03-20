@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 export default function NotFoundPage() {
     return (
         <Container>
-            <h1 className={styles.h1}>OOOPS Page not found</h1>
+            <h1 className={ styles.h1 }>OOOPS Page not found</h1>
         </Container>
     );
 }

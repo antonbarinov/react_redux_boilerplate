@@ -1,8 +1,8 @@
-const webpack = require("webpack");
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const p = require('./package.json');
 
 const path = require('path');
@@ -13,30 +13,43 @@ const hashType = dev ? '[hash]' : '[contenthash]';
 let devPlugins = [];
 let prodPlugins = [];
 if (dev) devPlugins = [];
-if (!dev) prodPlugins = [
-    new CleanWebpackPlugin(['dist']),
-    // This plugin copies individual
-    // files or entire directories to the build directory
-    new CopyWebpackPlugin([{ from: './assets', to: './assets' }]),
-    new MiniCssExtractPlugin({
-        // Options similar to the same options in webpackOptions.output
-        // both options are optional
-        filename: `[name].${hashType}.css`,
-        chunkFilename: `[id].${hashType}.css`,
-    }),
-];
+if (!dev) {
+    prodPlugins = [
+        new CleanWebpackPlugin([ 'dist' ]),
+        // This plugin copies individual
+        // files or entire directories to the build directory
+        new CopyWebpackPlugin([
+            {
+                from: './assets',
+                to: './assets',
+            },
+        ]),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: `[name].${ hashType }.css`,
+            chunkFilename: `[id].${ hashType }.css`,
+        }),
+    ];
+}
 
 
 module.exports = {
     mode: dev ? 'development' : 'production',
     entry: {
         vendor: Object.keys(p.dependencies),
-        bundle: ['./src/index.jsx'],
+        bundle: [ './src/index.jsx' ],
     },
     output: {
-        filename: `[name].${hashType}.js`,
-        path: __dirname + "/dist",
-        publicPath: '/'
+        filename: `[name].${ hashType }.js`,
+        path: __dirname + '/dist',
+        publicPath: '/',
+    },
+
+    optimization: {
+        splitChunks: {
+            chunks: 'all',
+        },
     },
 
     devServer: {
@@ -46,19 +59,22 @@ module.exports = {
         disableHostCheck: true,
         hot: false,
         inline: false, //disable auto page reload
-        publicPath: '/'
+        publicPath: '/',
     },
 
     // Enable sourcemaps for debugging webpack's output.
-    devtool: dev ? "source-map" : "none",
+    devtool: dev ? 'source-map' : 'none',
 
     resolve: {
-        // Add '.ts' and '.tsx' as resolvable extensions.
-        extensions: [".js", ".jsx", ".json"],
+        extensions: [
+            '.js',
+            '.jsx',
+            '.json',
+        ],
         modules: [
             path.resolve('./src'),
-            path.resolve('./node_modules')
-        ]
+            path.resolve('./node_modules'),
+        ],
     },
 
     module: {
@@ -74,22 +90,35 @@ module.exports = {
                     cacheDirectory: true,
                     babelrc: false,
                     presets: [
-                        ["@babel/preset-env", { "targets": { "browsers": "last 2 versions" } }],
-                        "@babel/preset-react"
+                        [
+                            '@babel/preset-env',
+                            { 'targets': { 'browsers': 'last 2 versions' } },
+                        ],
+                        '@babel/preset-react',
                     ],
                     plugins: [
-                        ["@babel/plugin-proposal-decorators", { "legacy": true }],
-                        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+                        [
+                            '@babel/plugin-proposal-decorators',
+                            { 'legacy': true },
+                        ],
+                        [
+                            '@babel/plugin-proposal-class-properties',
+                            { 'loose': true },
+                        ],
                     ],
                 },
             },
 
             // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-            { enforce: "pre", test: /\.js$/, loaders: dev ? ["source-map-loader"]: [] },
+            {
+                enforce: 'pre',
+                test: /\.js$/,
+                loaders: dev ? [ 'source-map-loader' ] : [],
+            },
 
             {
                 test: /\.json$/,
-                loaders: ['json'],
+                loaders: [ 'json' ],
             },
             {
                 test: /\.module\.(c|sa|sc)ss$/,
@@ -100,13 +129,13 @@ module.exports = {
                         options: {
                             importLoaders: 1,
                             modules: true,
-                            localIdentName: '[path]___[name]__[local]___[hash:base64:5]'
-                        }
+                            localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+                        },
                     },
                     'resolve-url-loader',
                     'postcss-loader',
                     'sass-loader',
-                ]
+                ],
             },
             {
                 test: /\.(c|sa|sc)ss$/,
@@ -117,24 +146,26 @@ module.exports = {
                     'resolve-url-loader',
                     'postcss-loader',
                     'sass-loader',
-                ]
+                ],
             },
             {
                 test: /\.svg$/,
-                use: [ 'raw-loader' ]
+                use: [ 'raw-loader' ],
             },
             {
                 test: /\.(png|jpg|jpeg|gif)$/,
-                use: [{
-                    loader: 'file-loader',
-                    options: {
-                        name: '[hash]__[name].[ext]',
-                        outputPath: './assets/file-loader/',
-                        publicPath: ''
-                    }
-                }]
-            }
-        ]
+                use: [
+                    {
+                        loader: 'file-loader',
+                        options: {
+                            name: '[hash]__[name].[ext]',
+                            outputPath: './assets/file-loader/',
+                            publicPath: '',
+                        },
+                    },
+                ],
+            },
+        ],
     },
 
     plugins: [
@@ -142,7 +173,7 @@ module.exports = {
             PRODUCTION: dev === false,
         }),
         new HtmlWebpackPlugin({
-            template: "index.html",
+            template: 'index.html',
         }),
         ...devPlugins,
         ...prodPlugins,

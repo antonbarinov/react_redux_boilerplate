@@ -1,6 +1,4 @@
 import * as React from 'react';
-import Header from './header';
-import Footer from './footer';
 
 import styles from './styles.module.scss';
 
@@ -11,12 +9,12 @@ export default class Layout extends React.Component {
         return (
             <span>
                 <div className={ styles.wrap }>
-                    <Header />
-                    <div className={ styles.main }>
-                        { React.cloneElement(children, restParams) }
+                    <div className={ styles.content_holder }>
+                        <div>
+                            { React.cloneElement(children, restParams) }
+                        </div>
                     </div>
                 </div>
-                <Footer />
             </span>
         );
     }

@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 
 export default class FormServerErrors extends React.Component {
     static defaultProps = {
-        msg: null
+        msg: null,
     };
 
     render() {
@@ -13,8 +13,8 @@ export default class FormServerErrors extends React.Component {
         if (!msg) return null;
 
         return (
-            <div className={styles.serverErrorsContainer}>
-                <div className={styles.msg}>{msg}</div>
+            <div className={ styles.serverErrorsContainer }>
+                <div className={ styles.msg }>{ msg }</div>
             </div>
         );
     }

@@ -1,4 +1,4 @@
-import "@babel/polyfill"; // Need for async/await
+import '@babel/polyfill'; // Need for async/await
 
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
@@ -12,6 +12,6 @@ import './index.css';
 userActions.me().catch(() => {});
 
 ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
+    <App />,
+    document.getElementById('root'),
 );
