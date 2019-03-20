@@ -1,16 +1,12 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 
-@CSSModules(require('./styles.scss'))
+import styles from './styles.module.scss';
+
 export default class LayoutFooter extends React.Component {
     render() {
         return (
-            <footer styleName="footer">
-                <div styleName="tbl">
-                    <div styleName="tbc">
-                        some footer content
-                    </div>
-                </div>
+            <footer className={styles.footer}>
+                some footer content
             </footer>
         );
     }

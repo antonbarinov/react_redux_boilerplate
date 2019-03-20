@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import CSSModules from 'react-css-modules';
+import Container from 'components/container';
+
+import styles from './styles.module.scss';
 
 
 const mapStateToProps = (state) => {
@@ -10,15 +12,14 @@ const mapStateToProps = (state) => {
 };
 
 @connect(mapStateToProps)
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 export default class ProfilePage extends React.Component {
     render() {
         const { user } = this.props;
 
         return (
-            <div className="container">
-                <h1 styleName="title">Hello, {user.full_name}!</h1>
-            </div>
+            <Container>
+                <h1 className={styles.title}>Hello, {user.full_name}!</h1>
+            </Container>
         );
     }
 }

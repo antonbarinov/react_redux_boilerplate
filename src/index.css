@@ -17,15 +17,3 @@ body:before {
     box-sizing: border-box;
     text-decoration: none;
 }
-
-.container {
-    max-width: 990px;
-    margin: 0 auto;
-    position: relative;
-}
-
-@media all and (max-width: 1023px) {
-    .container {
-        padding: 0 10px;
-    }
-}

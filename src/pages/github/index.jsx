@@ -1,17 +1,17 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 
 import PanelHeader from './components/panel-header';
 import Tab from './components/tab';
+import Container from 'components/container';
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
+
 export default class ProfilePage extends React.Component {
     render() {
         return (
-            <div className="container">
+            <Container>
                 <PanelHeader />
                 <Tab />
-            </div>
+            </Container>
         );
     }
 }

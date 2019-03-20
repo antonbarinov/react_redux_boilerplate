@@ -1,8 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import CSSModules from 'react-css-modules';
 import * as githubActions from 'reduxStore/reducers/github/actions';
 import { tabTypes } from 'reduxStore/reducers/github/constants';
+
+import styles from './styles.module.scss';
 
 const mapStateToProps = (state) => {
     return {
@@ -12,7 +13,6 @@ const mapStateToProps = (state) => {
 
 
 @connect(mapStateToProps)
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 export default class PanelHeader extends React.Component {
 
     removeTab(e, tab) {
@@ -21,11 +21,11 @@ export default class PanelHeader extends React.Component {
     }
 
     renderTab(tab) {
-        let styles = [ 'tab-item' ];
-        if (tab.active) styles.push('active');
+        let stylesStr = [ styles.tab_item ];
+        if (tab.active) stylesStr.push(styles.active);
 
         return (
-            <div styleName={styles.join(' ')} key={tab.id} onClick={() => githubActions.switchTab(tab.id)}>
+            <div className={stylesStr.join(' ')} key={tab.id} onClick={() => githubActions.switchTab(tab.id)}>
                 { tab.tabType }
                 <span onClick={(e) => this.removeTab(e, tab)}>×</span>
             </div>
@@ -36,12 +36,12 @@ export default class PanelHeader extends React.Component {
         const { tabs } = this.props;
 
         return (
-            <div styleName="PanelHeader">
-                <div styleName="tab-menu">
+            <div className={styles.panel_header}>
+                <div className={styles.tab_menu}>
                     <a onClick={() => githubActions.newTab(tabTypes.Users)} href="javascript:void(0)">Users</a>
                     <a onClick={() => githubActions.newTab(tabTypes.Repositories)} href="javascript:void(0)">Repositories</a>
                 </div>
-                <div styleName="tabs-list">
+                <div className={styles.tabs_list}>
                     { tabs.map(tab => this.renderTab(tab)) }
                 </div>
             </div>

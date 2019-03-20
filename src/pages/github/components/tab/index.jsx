@@ -1,10 +1,11 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 import Filter from './components/filter';
 import Search from './components/search';
 import Content from './components/content';
 import Pagination from './components/pagination';
 import { connect } from "react-redux";
+
+import styles from './styles.module.scss';
 
 
 const mapStateToProps = (state) => {
@@ -15,7 +16,6 @@ const mapStateToProps = (state) => {
 
 
 @connect(mapStateToProps)
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 export default class Tab extends React.Component {
     render() {
         const { tabs } = this.props;
@@ -25,13 +25,13 @@ export default class Tab extends React.Component {
         activeTab = activeTab[0];
 
         return (
-            <div styleName="Tab" data-tab-id={activeTab.id} >
+            <div className={styles.Tab} data-tab-id={activeTab.id} >
                 <h1>{ activeTab.tabType }</h1>
-                <div styleName="tab-holder">
-                    <div styleName="filters">
+                <div className={styles.tab_holder}>
+                    <div className={styles.filters}>
                         <Filter tab={activeTab} />
                     </div>
-                    <div styleName="content">
+                    <div className={styles.content}>
                         <Search tab={activeTab} />
                         <Content tab={activeTab} />
                         <Pagination tab={activeTab} />

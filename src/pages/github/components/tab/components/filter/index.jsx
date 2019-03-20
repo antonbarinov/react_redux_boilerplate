@@ -1,10 +1,10 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 import * as githubActions from 'reduxStore/reducers/github/actions';
 import { tabTypes } from 'reduxStore/reducers/github/constants';
 
+import styles from './styles.module.scss';
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
+
 export default class Filter extends React.Component {
     inputFiltersHolders(e, tab) {
         const name = e.target.name;
@@ -22,15 +22,15 @@ export default class Filter extends React.Component {
         if (tab.tabType === tabTypes.Repositories) {
             return (
                 <div>
-                    <div styleName="filters-input-holder">
+                    <div className={styles.filters_input_holder}>
                         <div>Min stars</div>
                         <div><input name="minStars" onChange={(e) => this.inputFiltersHolders(e, tab)} value={filtersData.minStars || ''} autoComplete="off" /></div>
                     </div>
-                    <div styleName="filters-input-holder">
+                    <div className={styles.filters_input_holder}>
                         <div>Min forks</div>
                         <div><input name="minForks" onChange={(e) => this.inputFiltersHolders(e, tab)} value={filtersData.minForks || ''} autoComplete="off" /></div>
                     </div>
-                    <div styleName="filters-radio-holder">
+                    <div className={styles.filters_radio_holder}>
                         <div>Forks</div>
                         <div>
                             <label>
@@ -49,11 +49,11 @@ export default class Filter extends React.Component {
         } else if (tab.tabType === tabTypes.Users) {
             return (
                 <div>
-                    <div styleName="filters-input-holder">
+                    <div className={styles.filters_input_holder}>
                         <div>Min repos</div>
                         <div><input name="minRepos" onChange={(e) => this.inputFiltersHolders(e, tab)} value={filtersData.minRepos || ''} autoComplete="off" /></div>
                     </div>
-                    <div styleName="filters-input-holder">
+                    <div className={styles.filters_input_holder}>
                         <div>Min followers</div>
                         <div><input name="minFollowers" onChange={(e) => this.inputFiltersHolders(e, tab)} value={filtersData.minFollowers || ''} autoComplete="off" /></div>
                     </div>

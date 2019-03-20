@@ -1,9 +1,9 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 import * as githubActions from 'reduxStore/reducers/github/actions';
 
+import styles from './styles.module.scss';
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
+
 export default class Search extends React.Component {
     inputHolder(e, tab) {
         const value = e.target.value;
@@ -15,7 +15,7 @@ export default class Search extends React.Component {
         const { searchQuery } = tab.tabData;
 
         return (
-            <div styleName="search">
+            <div className={styles.search}>
                 <input placeholder="Search" onChange={(e) => this.inputHolder(e, tab)} value={searchQuery || ''} autoComplete="off" />
             </div>
         );

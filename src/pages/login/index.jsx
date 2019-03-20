@@ -1,16 +1,16 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
 import * as userActions from 'reduxStore/reducers/user/actions';
 import FormInput from 'components/formItems/input';
 import FormButton from 'components/formItems/button';
 import FormServerErrors from 'components/formItems/serverErrors';
 import FormValidator from 'helpers/formValidator';
+import Container from 'components/container';
 import { helperRedirect } from 'helpers/redirect';
 import { Link } from 'react-router-dom';
 
+import styles from './styles.module.scss';
 
 
-@CSSModules(require('./styles.scss'))
 export default class LoginPage extends React.Component {
     constructor(props) {
         super(props);
@@ -64,16 +64,16 @@ export default class LoginPage extends React.Component {
 
     render() {
         return (
-            <div className="container">
+            <Container>
                 <h1>Login</h1>
                 <div>
                     <FormInput placeholder="Login" {...this.fv.validationFieldParams('login')} />
                     <FormInput placeholder="Password" type="password" {...this.fv.validationFieldParams('password')} />
                     <FormServerErrors msg={this.state.serverError} />
                     <FormButton onClick={this.validateAndSubmit.bind(this)}>Login</FormButton>
-                    <div styleName="underBtnText">Doesn't have account? <Link to="/signup">Sing up</Link> instead</div>
+                    <div className={styles.underBtnText}>Doesn't have account? <Link to="/signup">Sing up</Link> instead</div>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

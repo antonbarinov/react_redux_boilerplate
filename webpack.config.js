@@ -92,7 +92,7 @@ module.exports = {
                 loaders: ['json'],
             },
             {
-                test: /\.(sa|sc)ss$/,
+                test: /\.module\.(c|sa|sc)ss$/,
                 use: [
                     dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     {
@@ -109,12 +109,14 @@ module.exports = {
                 ]
             },
             {
-                test: /\.css$/,
+                test: /\.(c|sa|sc)ss$/,
+                exclude: /\.module\.(c|sa|sc)ss$/,
                 use: [
                     dev ? 'style-loader' : MiniCssExtractPlugin.loader,
                     'css-loader',
                     'resolve-url-loader',
-                    'postcss-loader'
+                    'postcss-loader',
+                    'sass-loader',
                 ]
             },
             {

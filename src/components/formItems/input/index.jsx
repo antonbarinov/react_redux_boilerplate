@@ -1,19 +1,19 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
+
+import styles from './styles.module.scss';
 
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 class FormInput extends React.Component {
     render() {
         let { msg, innerRef, ...props } = this.props;
 
-        let classesStr = [ 'inputContainer' ];
-        if (msg) classesStr.push('error');
+        let classesStr = [ styles.inputContainer ];
+        if (msg) classesStr.push(styles.error);
 
         return (
-            <div styleName={classesStr.join(' ')}>
+            <div className={classesStr.join(' ')}>
                 <input {...props} ref={innerRef}/>
-                <div styleName="msg">{msg}</div>
+                <div className={styles.msg}>{msg}</div>
             </div>
         );
     }

@@ -1,20 +1,20 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
+
+import styles from './styles.module.scss';
 
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 export default class FormServerErrors extends React.Component {
-    render() {
-        let props = { ...this.props };
-        delete props.msg;
-        delete props.setRef;
+    static defaultProps = {
+        msg: null
+    };
 
-        let msg = this.props.msg;
+    render() {
+        const { msg } = this.props;
         if (!msg) return null;
 
         return (
-            <div styleName='serverErrorsContainer'>
-                <div styleName="msg">{msg}</div>
+            <div className={styles.serverErrorsContainer}>
+                <div className={styles.msg}>{msg}</div>
             </div>
         );
     }

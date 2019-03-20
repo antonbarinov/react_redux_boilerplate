@@ -1,14 +1,14 @@
 import * as React from 'react';
-import CSSModules from 'react-css-modules';
+
+import styles from './styles.module.scss';
 
 
-@CSSModules(require('./styles.scss'), { allowMultiple: true })
 class FormButton extends React.Component {
     render() {
         let { innerRef, ...props } = this.props;
 
         return (
-            <div styleName="button" {...props} ref={innerRef}>
+            <div className={styles.button} {...props} ref={innerRef}>
                 {props.children}
             </div>
         );
