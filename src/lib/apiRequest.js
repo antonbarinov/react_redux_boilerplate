@@ -75,7 +75,9 @@ class apiRequest {
             response = e.response;
         } finally {
             if (this.__redux) {
-                dispatcher(this.__redux.prefix + '__fetching_end', this.__redux.identificator, { isFetching: false });
+                setTimeout(() => {
+                    dispatcher(this.__redux.prefix + '__fetching_end', this.__redux.identificator, { isFetching: false });
+                });
             }
         }
 
@@ -86,9 +88,7 @@ class apiRequest {
         if (response.status >= 200 && response.status < 300) {
             let resp = response.data;
             if (this.__redux) {
-                setTimeout(() => {
-                    dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, {originalResponseData: resp});
-                });
+                dispatcher(this.__redux.prefix + '__original_response_data', this.__redux.identificator, {originalResponseData: resp});
             }
 
             //if (resp.data) resp = resp.data;
