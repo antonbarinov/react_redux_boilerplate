@@ -19,10 +19,10 @@ export default class LayoutHeader extends React.Component {
 
         return (
             <header className={ styles.header }>
-                <AuthorizedOnlyLink user={ user } to="/profile" className={ styles.link }>Profile</AuthorizedOnlyLink>
-                <NotAuthorizedOnlyLink user={ user } to="/login" className={ styles.link }>Login</NotAuthorizedOnlyLink>
-                <CustomLink to="/" className={ styles.link }>Main</CustomLink>
-                <CustomLink to="/github" className={ styles.link }>Github</CustomLink>
+                <AuthorizedOnlyLink user={ user } to="/profile">Profile</AuthorizedOnlyLink>
+                <NotAuthorizedOnlyLink user={ user } to="/login">Login</NotAuthorizedOnlyLink>
+                <CustomLink to="/">Main</CustomLink>
+                <CustomLink to="/github">Github</CustomLink>
                 { user &&
                 <span className={ styles.link } onClick={ () => userActions.logout() }>Logout</span>
                 }
@@ -41,13 +41,16 @@ function NotAuthorizedOnlyLink({ children, user, ...rest }) {
     return <CustomLink { ...rest }>{ children }</CustomLink>;
 }
 
-function CustomLink({ children, to, ...rest }) {
+function CustomLink({ children, to, className, ...rest }) {
+    const stylesStr = [ styles.link ];
+    if (className) stylesStr.push(className);
+
     return (
         <Route
             path={ to }
             exact
             children={ ({ match }) => (
-                <Link to={ to } { ...rest } data-active={ match ? 'active' : '' }>{ children }</Link>
+                <Link to={ to } { ...rest } className={ stylesStr.join(' ') } data-active={ match ? 'active' : '' }>{ children }</Link>
             ) }
         />
     );
