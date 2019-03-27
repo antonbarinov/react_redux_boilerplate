@@ -60,6 +60,7 @@ module.exports = {
         hot: false,
         inline: false, //disable auto page reload
         publicPath: '/',
+        contentBase: path.join(__dirname, 'src'),
     },
 
     // Enable sourcemaps for debugging webpack's output.
