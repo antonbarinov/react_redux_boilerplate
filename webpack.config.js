@@ -20,7 +20,7 @@ if (!dev) {
         // files or entire directories to the build directory
         new CopyWebpackPlugin([
             {
-                from: './assets',
+                from: './src/assets',
                 to: './assets',
             },
         ]),
