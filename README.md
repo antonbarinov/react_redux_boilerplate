@@ -18,14 +18,14 @@
 - Profile page
 - Main page
 - Logout
-- Example page with Github repositories and users search using it's API
+
 
 ## Run
 ```
 npm install
 npm start
 ```
-Go to http://localhost:3000/
+Browser will be opened
 
 ## Build
 ```

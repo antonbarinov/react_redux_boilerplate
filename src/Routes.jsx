@@ -9,7 +9,6 @@ import LoginPage from './pages/login';
 import NotFoundPage from './pages/notFound';
 import SignUpPage from './pages/signup';
 import ProfilePage from './pages/profile';
-import GithubPage from './pages/github';
 import MainLayout from 'layouts/main';
 import AuthLayout from 'layouts/auth';
 
@@ -37,7 +36,6 @@ export default class Routes extends React.Component {
                 <Route path="/" exact><MainLayout><MainPage /></MainLayout></Route>
                 <Route path="/login" exact><AuthLayout><LoginPage /></AuthLayout></Route>
                 <Route path="/signup" exact><AuthLayout><SignUpPage /></AuthLayout></Route>
-                <Route path="/github" exact><MainLayout><GithubPage /></MainLayout></Route>
 
                 <PrivateRoute { ...privateProps } path="/profile"><MainLayout><ProfilePage /></MainLayout></PrivateRoute>
 

@@ -22,7 +22,6 @@ export default class LayoutHeader extends React.Component {
                 <AuthorizedOnlyLink user={ user } to="/profile">Profile</AuthorizedOnlyLink>
                 <NotAuthorizedOnlyLink user={ user } to="/login">Login</NotAuthorizedOnlyLink>
                 <CustomLink to="/">Main</CustomLink>
-                <CustomLink to="/github">Github</CustomLink>
                 { user &&
                 <span className={ styles.link } onClick={ () => userActions.logout() }>Logout</span>
                 }

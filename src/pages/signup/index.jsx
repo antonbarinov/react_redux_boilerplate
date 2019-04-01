@@ -12,23 +12,23 @@ import Container from 'components/container';
 
 
 export default class SignUpPage extends React.Component {
+    state = {
+        validationFields: {
+            login: { msg: false },
+            password: { msg: false },
+            full_name: { msg: false },
+        },
+        serverError: null,
+    };
+
+    inputRefs = {
+        login: React.createRef(),
+        password: React.createRef(),
+        full_name: React.createRef(),
+    };
+
     constructor(props) {
         super(props);
-
-        this.state = {
-            validationFields: {
-                login: { msg: false },
-                password: { msg: false },
-                full_name: { msg: false },
-            },
-            serverError: null,
-        };
-
-        this.inputRefs = {
-            login: React.createRef(),
-            password: React.createRef(),
-            full_name: React.createRef(),
-        };
 
         this.fv = new FormValidator(this);
     }
@@ -72,11 +72,13 @@ export default class SignUpPage extends React.Component {
     }
 
     render() {
+        const { validationFieldParams } = this.fv;
+
         return (
             <Container className={styles.container}>
                 <h1>Sign up</h1>
                 <div>
-                    <FormInput placeholder="Full name" { ...this.fv.validationFieldParams('full_name') } />
+                    <FormInput placeholder="Full name" { ...validationFieldParams('full_name') } />
                     <FormInput placeholder="Login" { ...this.fv.validationFieldParams('login') } />
                     <FormInput placeholder="Password"
                                type="password" { ...this.fv.validationFieldParams('password') } />

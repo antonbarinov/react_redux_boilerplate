@@ -3,7 +3,7 @@ import * as React from 'react';
 import styles from './styles.module.scss';
 
 
-export default function FormServerErrors({ msg = null }) {
+export default function FormServerErrors({ msg = '' }) {
     if (!msg) return null;
 
     return (

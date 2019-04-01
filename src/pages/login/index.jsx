@@ -12,21 +12,21 @@ import styles from './styles.module.scss';
 
 
 export default class LoginPage extends React.Component {
+    state = {
+        validationFields: {
+            login: { msg: false },
+            password: { msg: false },
+        },
+        serverError: '',
+    };
+
+    inputRefs = {
+        login: React.createRef(),
+        password: React.createRef(),
+    };
+
     constructor(props) {
         super(props);
-
-        this.state = {
-            validationFields: {
-                login: { msg: false },
-                password: { msg: false },
-            },
-            serverError: null,
-        };
-
-        this.inputRefs = {
-            login: React.createRef(),
-            password: React.createRef(),
-        };
 
         this.fv = new FormValidator(this);
     }
