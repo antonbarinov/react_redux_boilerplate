@@ -72,13 +72,11 @@ export default class SignUpPage extends React.Component {
     }
 
     render() {
-        const { validationFieldParams } = this.fv;
-
         return (
             <Container className={styles.container}>
                 <h1>Sign up</h1>
                 <div>
-                    <FormInput placeholder="Full name" { ...validationFieldParams('full_name') } />
+                    <FormInput placeholder="Full name" { ...this.fv.validationFieldParams('full_name') } />
                     <FormInput placeholder="Login" { ...this.fv.validationFieldParams('login') } />
                     <FormInput placeholder="Password"
                                type="password" { ...this.fv.validationFieldParams('password') } />
